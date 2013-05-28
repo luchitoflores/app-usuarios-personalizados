@@ -1,0 +1,8 @@
+{% if messages%}
+{%for m in messages%}
+<div class="alert alert-warning">
+	<button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+	<img src="/static/img/warning.png" alt=""> {{m}}
+</div>
+{%endfor%}
+{%endif%}

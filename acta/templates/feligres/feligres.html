@@ -1,0 +1,136 @@
+{%extends 'plantilla.html'%}
+
+{%block head%}{%load tags%}{%endblock%}
+
+
+{%block h1%}Feligres{%endblock%}
+
+{%block content%}
+<script>
+$(document).ready(function(){
+	$('.id_delete').click(function(){
+		var e=$(this).attr('name');
+
+		$.get('/feligres/ajax',function(data){
+			console.log(data.list_feligreses);
+			var lista = data.list_feligreses;
+			$.each(lista, function(indice, elemento){
+				var id = elemento.id;
+				if(id == e){
+					$('#id_nombres').html('<p>'+elemento.nombre+' '+elemento.apellidos+'</p>');
+					$('#id_eliminar').attr('href','/feligres/'+e+'/delete');
+
+				}
+			});
+
+		});
+	});		
+
+});
+</script>
+
+
+
+
+{% messages_success_tag %}
+
+
+<form action="." class="form-search" method='GET'>
+	<input type="text" class="input-medium search-query" name="q">
+	<input id='id_buscar' type="submit" value="Buscar" class="btn btn-primary">
+</form>
+
+<p href="">
+	Página  {{ list_feligreses.number }} de {{ list_feligreses.paginator.num_pages }}
+</p>
+
+<table class='table table-bordered table-striped'>
+	<th>Nombres</th>
+	<th>Cedula</th>
+	<th>Sexo</th>
+	<th>Acciones</th>
+
+	{%for f in list_feligreses%}
+	<tr>
+		<td><a href="{{f.get_absolute_url}}">{{f.nombre}} {{f.apellidos}}</a></td>
+		<td>{{f.cedula}}</td>
+		<td>{{f.sexo}}</td>
+		<td><a class='id_delete' href="#myModal" role="button" data-toggle="modal" name='{{f.id}}'>eliminar modal</a>
+		</td>
+	</tr>
+	{%empty%}
+
+	<tr>
+		<td colspan="4">
+			No se encontro ningun registro
+		</td>
+	</tr>
+
+
+	{%endfor%}
+</table>
+
+
+<!--
+<div class="pagination">
+	<ul>
+
+		{% if list_feligreses.has_previous %}
+		<li><a href="?page={{ list_feligreses.previous_page_number }}&q={{q}}">Anterior</a>
+			{% endif %}
+		</li>
+
+		{%for p in lista%}
+		<li><a href="?page={{p}}&q={{q}}">{{p}}</a></li>
+		{%endfor%}
+
+		<li>
+			{% if list_feligreses.has_next %}
+			<a href="?page={{ list_feligreses.next_page_number }}&q={{q}}">Siguiente</a>
+			{% endif %}
+		</li>
+	</ul>
+</div>
+-->
+
+	<div class="pagination">
+	<ul>
+
+		{% if page_obj.has_previous %}
+		<li><a href="?page={{page_obj.previous_page_number }}">Anterior</a>
+			{% endif %}
+		</li>
+
+		{%for p in lista%}
+		<li><a href="?page={{p}}">{{p}}</a></li>
+		{%endfor%}
+
+		<li>
+			{% if page_obj.has_next %}
+			<a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+			{% endif %}
+		</li>
+	</ul>
+</div>
+
+
+<div  id="myModal" class="modal hide fade"  tabindex="5">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3>Eliminar Feligrés</h3>
+	</div>
+	<div class="modal-body">
+		<p>Está seguro de querer eliminar el siguiente feligrés:</p>
+		<h4 id='id_nombres'></h4>
+	</div>
+	<div class="modal-footer">
+		<a href="." class="btn">Cancelar</a>
+		<a id='id_eliminar' href="." class="btn btn-danger">Eliminar</a>
+	</div>
+</div>
+
+<a  class="btn btn-primary" href="{% url 'addfeligres'%}">Crear Feligrés</a>
+
+
+
+{%endblock%}

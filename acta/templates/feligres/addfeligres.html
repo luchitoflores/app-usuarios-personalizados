@@ -1,0 +1,91 @@
+{%extends 'plantilla.html'%}
+
+{%block head%}{%load tags%}{%endblock%}
+
+{%block h1%} 
+<div class="form-actions">
+	Añadir Feligrés
+</div>
+{%endblock%}
+
+
+{%block script%}
+<script>
+$(function(){
+	console.log('estoy haciendo peticiones jquery');
+	$('#id_fechaNacimiento').attr('data-date-format', 'dd/mm/yyyy');
+	$('#id_fechaNacimiento').datepicker();
+	
+});
+</script>
+
+<script>
+$(function(){
+	$('#id_cedula').attr('data-toogle','tooltip');
+	$('#id_cedula').attr('data-original-title','Ingrese un numero de cedula ej:1104688617');
+	$('#id_cedula').attr('data-placement','right');
+	$('#id_cedula').tooltip();
+
+	$('#id_nombre').attr('data-toogle','tooltip');
+	$('#id_nombre').attr('data-original-title','Ingrese un nombre ej:Jose, Edison');
+	$('#id_nombre').attr('data-placement','right');
+	$('#id_nombre').tooltip();
+
+	$('#id_apellidos').attr('data-toogle','tooltip');
+	$('#id_apellidos').attr('data-original-title','Ingrese apellidos ej: Espinosa, Espinosa Luna');
+	$('#id_apellidos').attr('data-placement','right');
+	$('#id_apellidos').tooltip();
+
+	$('#id_lugarNacimiento').attr('data-toogle','tooltip');
+	$('#id_lugarNacimiento').attr('data-original-title','Ingrese el lugar de nacimiento');
+	$('#id_lugarNacimiento').attr('data-placement','right');
+	$('#id_lugarNacimiento').tooltip();
+
+	$('#id_fechaNacimiento').attr('data-toogle','tooltip');
+	$('#id_fechaNacimiento').attr('data-original-title','Ingrese la Fecha de nacimiento');
+	$('#id_fechaNacimiento').attr('data-placement','right');
+	$('#id_fechaNacimiento').tooltip();
+
+	$('#id_sexo').attr('data-toogle','tooltip');
+	$('#id_sexo').attr('data-original-title','Escoja el sexo');
+	$('#id_sexo').attr('data-placement','right');
+	$('#id_sexo').tooltip();
+
+});
+</script>
+{%endblock%}
+
+
+
+
+
+{%block content%}
+
+
+{% messages_error_tag %}
+<form id='id_form' action='/feligres/add/' method='POST' class='form-horizontal'>
+	{% csrf_token %}
+	{% for f in form%}
+	<label class='control-label'>
+		{{f.label_tag}}
+	</label>
+	<div class="controls">
+		{{f|default:"Persona"}}
+	</div>
+	<div id='prueba' class="controls help-text" >
+		{{f.help_text}}
+	</div>
+	<div class="controls errors">
+		{{f.errors}}
+	</div>
+	{%endfor%}
+
+	<div class="form-actions">
+		<input class='btn btn-primary' type="submit" value="Guardar"/> 
+		<input id="id_saveanother" class='btn btn-primary' type="submit" value="Guardar y Crear Otro"/> 
+		<a href="/feligres/" class="btn btn-primary">Cancelar</a>
+
+	</div>
+</form>
+
+{%endblock%}

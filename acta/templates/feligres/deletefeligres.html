@@ -1,0 +1,54 @@
+{%extends 'plantilla.html'%}
+
+{%block h1%} Edit Feligres{%endblock%}
+
+
+{%block content%}
+
+<script>
+	$(document).ready(function(){
+		$('#id_saveanother').click(function(){
+			$('#id_hidden').attr('value', 'True');
+			$('#id_form').attr('action', '/feligres/add/');
+
+		});
+
+	});
+
+	
+
+</script>
+
+<form id='id_form' action='.' method='POST' class='form-horizontal'>
+	{% csrf_token %}
+	{% for f in form%}
+	<label class='control-label'>
+	{{f.name}}
+	</label>
+	<div class="controls">
+		{{f}}
+	</div>
+	<div class="controls help-text" >
+		{{f.help_text}}
+	</div>
+	<div class="controls" style='color: red'>
+		{{f.errors}}
+	</div>
+	{%endfor%}
+	<input id='id_hidden' type="hidden" name="bandera" value=>
+	<div class="form-actions">
+	<input class='btn btn-primary' type="submit" value="Guardar"/> 
+	<input id="id_saveanother" class='btn btn-primary' type="submit" value="Guardar y Crear Otro"/> 
+	<input id="id_reset" class='btn btn-primary' type="submit" value="Cancelar"/> 
+	</div>
+</form>
+
+<!--<form action='/feligres/add/' method='POST'>
+	{% csrf_token %}
+	{{form}}
+	<div class="form-actions">
+	<input class='btn btn-primary' type="submit" value="Guardar"/> 
+	</div>
+</form>-->
+{%endblock%}
+	

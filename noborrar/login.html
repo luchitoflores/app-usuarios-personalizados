@@ -1,0 +1,121 @@
+{% extends 'plantilla.html'%}
+
+
+{%block script%}
+
+<script>
+
+$(function(){
+	$('#id_dialog').modal('show');
+});
+
+</script>
+
+<!--
+$(function(){
+	$('#id_dialog').modal('show');
+
+	$('form').on('submit', function(){
+		$('#id_dialog').effect('shake',6000);
+		return false;
+	});
+}); 
+-->
+
+
+
+
+<script>
+
+
+$(function(){
+	$('#id_form').on('submit', function(e){
+
+		e.preventDefault();
+		$.ajax({
+			beforeSend: function(){
+				var opts = {
+  lines: 13, // The number of lines to draw
+  length: 4, // The length of each line
+  width: 2, // The line thickness
+  radius: 3, // The radius of the inner circle
+  corners: 1, // Corner roundness (0..1)
+  rotate: 0, // The rotation offset
+  direction: 1, // 1: clockwise, -1: counterclockwise
+  color: '#000', // #rgb or #rrggbb
+  speed: 1, // Rounds per second
+  trail: 60, // Afterglow percentage
+  shadow: false, // Whether to render a shadow
+  hwaccel: false, // Whether to use hardware acceleration
+  className: 'spinner', // The CSS class to assign to the spinner
+  zIndex: 2e9, // The z-index (defaults to 2000000000)
+  top: 'auto', // Top position relative to parent in px
+  left: 'relative',
+  
+};
+var target = document.getElementById('id_carga');
+var spinner = new Spinner(opts).spin(target);
+},
+
+url: $('#id_form').attr('action'),
+type: $('#id_form').attr('method'),
+data: $('#id_form').serialize(),
+success: function(response){
+	console.log(response);
+	$('#id_carga').html('<p>Todo está correcto</p>')
+	
+},
+error: function(jqXHR, estado, error){
+	console.log(jqXHR);
+	console.log(estado);
+	console.log(error);
+},
+complete: function(jqXHR, estado){
+	console.log(jqXHR);
+	console.log(estado);
+},
+timeout: 15000,
+});
+
+});
+});
+
+
+
+</script>
+
+
+{%endblock %}
+
+
+{% block content%}
+<form action="." id="id_form" method='POST'>
+	{%csrf_token%}
+	<div  id="id_dialog" class="modal hide fade" style='width: 20%; left: 40%'>
+		<div class="modal-header">
+
+			<h3>Login</h3>
+		</div>
+		<div class="modal-body">
+			<div id="error">
+				{{mensaje}}
+			</div>
+
+			<div id="id_carga">
+				
+			</div>
+			<input id='username' type="text" name='username' placeholder="Usuario"></br>
+
+			<input id='password' type="password" name='password' placeholder="Contraseña">
+			
+		</div>
+		<div class="modal-footer">
+			<input id='id_submit' type="submit" class='btn btn-primary'>
+		</div>
+	</div>
+
+</form>
+
+
+
+{% endblock %}
