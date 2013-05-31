@@ -86,9 +86,6 @@ class FeligresList(ListView):
 	context_object_name = 'list_feligreses'
 	paginate_by = '5'
 
-
-
-
 @login_required(login_url='/login/')
 def feligres_view(request):
 	logger.info('este es el valor de query antes: '+ request.GET.get('q', 'elida'))
@@ -190,6 +187,7 @@ class ParroquiaList(ListView):
 	template_name         = 'parroquia/parroquia_list.html'
 	# context_object_name = 'list_parroquia'
 	# paginate_by = 5
+
 
 class ParroquiaCreate(CreateView):
 	model               = Parroquia

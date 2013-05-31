@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from acta.views import FeligresList, ParroquiaCreate, ParroquiaUpdate, ParroquiaList, ParroquiaDelete
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = patterns('acta.views',
 	url(r'^feligres/add/$','addFeligres_view', name='addfeligres'),
@@ -13,6 +14,6 @@ urlpatterns = patterns('acta.views',
 	url(r'^parroquia/add$', ParroquiaCreate.as_view(), name='parroquia_create'),
 	url(r'^parroquia/(?P<pk>\d+)/$', ParroquiaUpdate.as_view(), name='parroquia_update'),
 	url(r'parroquia/(?P<pk>\d+)/delete/$', ParroquiaDelete.as_view(), name='parroquia_delete'), 
-	url(r'^parroquia/$', ParroquiaList.as_view(), name='parroquia_list'),
+	url(r'^parroquia/$', login_required(ParroquiaList.as_view(), login_url='/login/') , name='parroquia_list'),
 	)
 
