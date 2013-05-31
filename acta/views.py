@@ -86,6 +86,8 @@ class FeligresList(ListView):
 	context_object_name = 'list_feligreses'
 	paginate_by = '5'
 
+
+
 @login_required(login_url='/login/')
 def feligres_view(request):
 	logger.info('este es el valor de query antes: '+ request.GET.get('q', 'elida'))
