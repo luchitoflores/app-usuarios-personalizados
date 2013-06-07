@@ -5,26 +5,30 @@ from acta.models import *
 from django.forms.widgets import RadioSelect
 from acta.validaciones import *
 
+
+
 class FeligresForm(ModelForm):
+	SEXO_CHOICES    =(('m','Masculino'),('f','Femenino'))
 	# cedula = forms.CharField(error_messages={'required': 'Ingrese un valor para el número de cédula'}, help_text='Ingrese un numero de cedula ej:1104688617')
-	
+	sexo = forms.ChoiceField(required=True, choices=SEXO_CHOICES, widget=RadioSelect)
 	class Meta():
 		model=Feligres
-		#widgets = {
-         #   'sexo': RadioSelect(),
-        #}
+		# widgets = {
+  #          'sexo': RadioSelect(),
+  #       }
+
 		#exclude=('cedula',)
 		#fields=('cedula',)
 
 	#crear validaciones personalizadas
-	def clean_cedula(self):
-		datos=self.cleaned_data['cedula']
-		# La sentencia equivalente es igual a la anterior, solo cambio de sintaxis
-		#datos=self.cleaned_data.get('cedula')
-		if not cedula_valida(datos):
-			raise forms.ValidationError('El número de cédula ingresado no es válido')
+	# def clean_cedula(self):
+	# 	datos=self.cleaned_data['cedula']
+	# 	# La sentencia equivalente es igual a la anterior, solo cambio de sintaxis
+	# 	#datos=self.cleaned_data.get('cedula')
+	# 	if not cedula_valida(datos):
+	# 		raise forms.ValidationError('El número de cédula ingresado no es válido')
 
-		return datos
+	# 	return datos
 		
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput())

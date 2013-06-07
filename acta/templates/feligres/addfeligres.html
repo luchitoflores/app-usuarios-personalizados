@@ -2,10 +2,10 @@
 
 {%block head%}{%load tags%}{%endblock%}
 
-{%block h1%} 
-<div class="form-actions">
+{%block title%} 
+
 	Añadir Feligrés
-</div>
+
 {%endblock%}
 
 
@@ -70,7 +70,18 @@ $(function(){
 		{{f.label_tag}}
 	</label>
 	<div class="controls">
-		{{f|default:"Persona"}}
+		
+		{% if f.name == 'sexo' %}
+		{% for r in f%}
+		
+			{{r}}
+		
+
+		{% endfor %}
+		{% else %}	
+		{{f}}
+		{% endif %}
+		
 	</div>
 	<div id='prueba' class="controls help-text" >
 		{{f.help_text}}

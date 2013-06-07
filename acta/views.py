@@ -1,19 +1,21 @@
 # -*- coding:utf-8 -*-
 # Create your views here.
+import json
+import logging
+
 from django.shortcuts import render_to_response,render, get_object_or_404
-from acta.forms	import *
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import login,logout,authenticate
-import json
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-import logging
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+
+from .forms	import *
 
 logger = logging.getLogger(__name__)
 

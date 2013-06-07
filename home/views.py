@@ -1,12 +1,17 @@
 # *-* coding:utf-8 *-* 
 # Create your views here.
-from django.shortcuts import render_to_response, render
 import json
+
+from django.shortcuts import render_to_response, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm, PasswordChangeForm
 from django.contrib import messages
+from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import ListView
+from django.contrib.auth.models import Group 
 
 def index_view(request):
 	return render_to_response('index.html')
@@ -119,4 +124,34 @@ def change_password_view(request):
 	ctx = {'form': form}
 	return render(request, 'change-password.html', ctx)
 	
+
+class GroupCreate(CreateView):
+	model = Group
+	success_url = 'group_list'
+
+	@method_decorator(login_required(login_url='login'))
+	def dispatch(self, *args, **kwargs):
+		return super(GroupCreate, self).dispatch(*args, **kwargs)
+
+
+class GroupUpdate(UpdateView):
+	"""docstring for GroupUpdate"""
+	model = Group
+	template_name       = 'auth/group_form.html'
+	context_object_name = 'form'
+	success_url = 'group_list'
+
+	@method_decorator(login_required(login_url='login'))
+	def dispatch(self, *args, **kwargs):
+		return super(GroupUpdate, self).dispatch(*args, **kwargs)
+
+class GroupList(ListView):
+	model = Group
+	context_object_name = 'object_list'
+
+	
+		
+
+	
+		
 
