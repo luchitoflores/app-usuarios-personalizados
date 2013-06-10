@@ -1,11 +1,14 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
-from .views import FeligresList, ParroquiaCreate, ParroquiaUpdate, ParroquiaList, ParroquiaDelete
+from .views import (
+	FeligresList, ParroquiaCreate, ParroquiaUpdate, ParroquiaList, ParroquiaDelete, ActaList
+	)
 from django.contrib.auth.decorators import login_required
 from .rest import FeligresCreateRead, FeligresCreateReadUpdateDelete
 
 
 urlpatterns = patterns('acta.views',
+	url(r'^acta/$',ActaList.as_view(), name='acta_list'),
 	url(r'^feligres/add/$','addFeligres_view', name='addfeligres'),
 	# url(r'^feligres/$','feligres_view'),
 	url(r'^feligres/$',FeligresList.as_view(), name='feligres_list'),

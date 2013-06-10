@@ -15,7 +15,8 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 
-from .forms	import *
+from .forms	import FeligresForm, LoginForm
+from .models import Acta, Feligres, Parroquia
 
 logger = logging.getLogger(__name__)
 
@@ -233,6 +234,14 @@ class FeligresList(ListView):
 	template_name = 'feligres/feligres.html'
 	context_object_name = 'list_feligreses'
 	paginate_by = '5'
+
+
+class ActaList(ListView):
+	model = Acta
+	template_name = 'acta/acta_list.html'
+	context_object_name = 'object_list'
+	queryset = Acta.objects.actas_por_anio(2012)
+
 
 
 

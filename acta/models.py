@@ -11,6 +11,13 @@ class TimeStampedModel(models.Model):
 	class Meta:
 		abstract = True
 
+
+class ActaManager(models.Manager):
+	def actas_por_anio(self, anio):
+		return self.model.objects.filter(fecha_sacramento__year=anio)
+
+
+
 class Feligres(TimeStampedModel):
 	SEXO_CHOICES    = (
 		('m','Masculino'),('f','Femenino')
@@ -80,7 +87,7 @@ class Acta(TimeStampedModel):
 	#def __unicode__(self):
 	#	return self.numero
 	
-	objects = 'ActaManager()'	
+	objects = ActaManager()	
 	
 	
 	def __str__(self):
@@ -101,9 +108,7 @@ class Direccion(TimeStampedModel):
 	celular = models.CharField(max_length=30)
 
 
-class ActaManager(models.Manager):
-	def actas_por_anio(self, anio):
-		return self.objects.filter(fecha_sacramento__year=anio)
+
 
 
 
