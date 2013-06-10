@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+
+{% block title%} Escritorio{%endblock%}
+
+{% block content%}
+
+{% block breadcrumbs %}<a href="{%url 'home'%}">Home</a>{% endblock %}
+
+
+<table class="table table-bordered table-stripped">
+	<tr>
+		<th><a href="/feligres/">Feligreses</a></th>
+	</tr>
+	<tr>
+		<th><a href="">Actas</a></th>
+	</tr>
+	<tr>
+		<th><a href="">Primera Comunión</a></th>
+	</tr>
+	<tr>
+		<th><a href="">Actas de Confirmación</a></th>
+	</tr>
+	<tr>
+		<th><a href="">Actas Matrimoniales</a></th>
+	</tr>
+	<tr>
+		<th><a href="">Grupos Apostólicos</a></th>
+	</tr>
+	
+	<tr>
+		<th><a href="">Agenda</a></th>
+	</tr>
+
+</table>
+
+
+{%endblock%}

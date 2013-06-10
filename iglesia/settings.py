@@ -60,7 +60,8 @@ MEDIA_ROOT = ''
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = '/media/'
+MEDIA_URL = ''
+# MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -74,7 +75,8 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    os.path.join(RUTA_PROYECTO, 'static'),
+    'static',
+    # os.path.join(RUTA_PROYECTO, 'static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -116,7 +118,8 @@ ROOT_URLCONF = 'iglesia.urls'
 WSGI_APPLICATION = 'iglesia.wsgi.application'
 
 TEMPLATE_DIRS = (
-    os.path.join(RUTA_PROYECTO, 'template'),
+    'templates',
+    # os.path.join(RUTA_PROYECTO, 'template'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -126,18 +129,21 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'acta',
+    'home',
+    'usuarios',
     'django.contrib.webdesign',
     'south',
     'django_extensions',
     #'debug_toolbar',
+    'rest_framework',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -172,7 +178,19 @@ LOGGING = {
 
 
 #Cosas extras que añadi
+#
+#Sirve para indicar a donde se debe redirigir cada vez que se logue
 LOGIN_REDIRECT_URL = '/home/'
+
+# Sirve para vincular el User con un Perfil de Usuario customizado
+# Se debe poner el nombre de la aplicacion donde esta el perfil 
+# mas la clase que administra el perfil
+# AUTH_PROFILE_MODULE = 'acta.PerfilUser'
+
+# Para sustituir el modelo del user de django por mi propio modelo
+AUTH_USER_MODEL = 'usuarios.Usuario'
+
+
 
 # INTERNAL_IPS = ('127.0.0.1',)
 

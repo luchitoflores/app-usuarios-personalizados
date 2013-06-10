@@ -1,11 +1,9 @@
-{%extends 'plantilla.html'%}
+{%extends 'feligres/feligres.html'%}
 
 {%block head%}{%load tags%}{%endblock%}
 
 {%block title%} 
-
-	Añadir Feligrés
-
+{% if form.pk %}Editar Feligrés{% else %}Añadir Feligrés{%endif%}
 {%endblock%}
 
 
@@ -60,36 +58,39 @@ $(function(){
 
 
 {%block content%}
+{% block breadcrumbs %} {{ block.super }}» <a href="{%url 'addfeligres'%}">Añadir Feligrés</a>{% endblock %}
 
 
 {% messages_error_tag %}
 <form id='id_form' action='/feligres/add/' method='POST' class='form-horizontal'>
+
 	{% csrf_token %}
-	{% for f in form%}
-	<label class='control-label'>
-		{{f.label_tag}}
-	</label>
-	<div class="controls">
+	
+	<div class="control-group">
+		{% for f in form%}
+		<label class='control-label'>
+			{{f.label}}
+		</label>
 		
 		{% if f.name == 'sexo' %}
-		{% for r in f%}
-		
-			{{r}}
-		
-
-		{% endfor %}
-		{% else %}	
-		{{f}}
+		{% for r in f%}<div class="controls">{{r}}</div>{% endfor %}
+		{% else %}
+		<div class="controls">
+			{{f}}
+		</div>
 		{% endif %}
-		
+		<div id='prueba' class="controls help-text" >
+			{{f.help_text}}
+			<span class="errors">
+				{{f.errors}}
+			</span>
+		</div>
+
+
+		{%endfor%}
+
 	</div>
-	<div id='prueba' class="controls help-text" >
-		{{f.help_text}}
-	</div>
-	<div class="controls errors">
-		{{f.errors}}
-	</div>
-	{%endfor%}
+
 
 	<div class="form-actions">
 		<input class='btn btn-primary' type="submit" value="Guardar"/> 

@@ -82,14 +82,6 @@ def addFeligres_view(request):
 
 
 
-class FeligresList(ListView):
-	model = Feligres
-	template_name = 'feligres/feligres.html'
-	context_object_name = 'list_feligreses'
-	paginate_by = '5'
-
-
-
 @login_required(login_url='/login/')
 def feligres_view(request):
 	logger.info('este es el valor de query antes: '+ request.GET.get('q', 'elida'))
@@ -184,6 +176,10 @@ def feligresajax_view(request):
 	return HttpResponse(json.dumps(ctx), content_type='application/json')
 
 
+
+#Vistas Genéricas 
+
+
 #Vistas para la clase Parroquia
 
 class ParroquiaList(ListView):
@@ -232,7 +228,11 @@ class ParroquiaDelete(DeleteView):
 		messages.add_message(self.request, messages.ERROR, 'Eliminado Correctamente')
 		return super(ParroquiaDelete, self).delete(request, *args, **kwargs)
 	
-	
+class FeligresList(ListView):
+	model = Feligres
+	template_name = 'feligres/feligres.html'
+	context_object_name = 'list_feligreses'
+	paginate_by = '5'
 
 
 

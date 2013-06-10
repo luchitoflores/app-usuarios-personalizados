@@ -1,10 +1,13 @@
-{%extends 'plantilla.html'%}
+{%extends 'home.html'%}
 
 {%block head%}{%load tags%}{%endblock%}
 
 {%block title%}Feligres{%endblock%}
 
 {%block content%}
+{% block breadcrumbs %} {{ block.super }} » <a href="{%url 'feligres_list'%}">Feligreses</a>{% endblock %}
+
+
 <script>
 $(document).ready(function(){
 	$('.id_delete').click(function(){

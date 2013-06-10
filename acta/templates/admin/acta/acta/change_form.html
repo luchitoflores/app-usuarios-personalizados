@@ -1,0 +1,18 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_static admin_modify %}
+{% load url from future %}
+{% load admin_urls %}
+
+
+{% block form_top %}
+<h1>Hola prueba</h1>
+{% endblock %}
+
+{% block after_related_objects %}
+<div class="submit-row">
+	
+	<input type="submit" value="Reportes" name="reportes">
+
+</div>
+{% endblock %}
+{% block submit_buttons_bottom %}{% submit_row %}{% endblock %}
