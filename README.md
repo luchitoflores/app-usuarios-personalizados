@@ -1,4 +1,4 @@
-iglesia
-=======
+App usuarios personalizados en Django
+=====================================
 
-Sistema de Gestión Sacramental
+Esta es una app para usuarios personalizada
